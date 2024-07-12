@@ -33,13 +33,20 @@ class Ncdc < Formula
   depends_on "ncurses"
   depends_on "sqlite"
 
+  uses_from_macos "bzip2"
+  uses_from_macos "zlib"
+
+  on_macos do
+    depends_on "gettext"
+  end
+
   def install
-    system "autoreconf", "-ivf" if build.head?
-    system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
+    system "autoreconf", "--force", "--install", "--verbose" if build.head?
+    system "./configure", *std_configure_args
     system "make", "install"
   end
 
   test do
-    system "#{bin}/ncdc", "-v"
+    system bin/"ncdc", "-v"
   end
 end
