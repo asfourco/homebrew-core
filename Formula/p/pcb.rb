@@ -1,6 +1,7 @@
 class Pcb < Formula
   desc "Interactive printed circuit board editor"
-  homepage "http://pcb.geda-project.org/"
+  # site http://pcb.geda-project.org/ not accessible bug report, https://bugs.launchpad.net/pcb/+bug/2073017
+  homepage "https://sourceforge.net/projects/pcb/"
   url "https://downloads.sourceforge.net/project/pcb/pcb/pcb-4.3.0/pcb-4.3.0.tar.gz"
   sha256 "ae852f46af84aba7f51d813fb916fc7fcdbeea43f7134f150507024e1743fb5e"
   license "GPL-2.0-or-later"
@@ -30,8 +31,11 @@ class Pcb < Formula
 
   depends_on "intltool" => :build
   depends_on "pkg-config" => :build
+
+  depends_on "cairo"
   depends_on "dbus"
   depends_on "gd"
+  depends_on "gdk-pixbuf"
   depends_on "gettext"
   depends_on "glib"
   depends_on "gtk+"
@@ -43,7 +47,11 @@ class Pcb < Formula
   uses_from_macos "tcl-tk"
 
   on_macos do
+    depends_on "at-spi2-core"
     depends_on "gnu-sed"
+    depends_on "harfbuzz"
+    depends_on "libxrender"
+    depends_on "pango"
   end
 
   on_linux do
